@@ -11,7 +11,7 @@ import Foundation
 internal var RootTag: String = "root"
 
 
-internal struct XMLTag  {
+internal class XMLTag: CustomStringConvertible  {
     var tageName: String?
     var children: [XMLTag] = [XMLTag]()
     var attributes: [String : String]?
@@ -28,9 +28,25 @@ internal struct XMLTag  {
         self.children = tag.children
         self.value = tag.value
     }
+    
+    public var description: String {
+        var str: String = "\n<\(tageName!)>"
+        
+        if let val = self.value {
+            str.append("\(val)")
+        }
+        
+        for tag in children {
+            str.append("\(tag)")
+        }
+        
+        str.append("</\(tageName!)>\n")
+        
+        return str
+    }
 }
 
-public class XMLToMap :NSObject {
+public class XMLMap :NSObject {
     
     internal var xmlParser: XMLParser?
     internal var stack: [XMLTag] = [XMLTag]()
@@ -60,24 +76,29 @@ public class XMLToMap :NSObject {
     internal func clean() {
         self.xmlParser?.delegate = nil
         self.xmlParser = nil
+        self.root = self.stack.last
         self.stack.removeAll()
     }
     
+    override public var description: String {
+        return "\(self.root)"
+    }
+    
     public func display() {
-        print("XML MAP: \(self.root)")
+        print("XML MAP: \(self.root?.description)")
     }
     
 }
 
-extension XMLToMap: XMLParserDelegate {
+extension XMLMap: XMLParserDelegate {
     
     public func parserDidStartDocument(_ parser: XMLParser) {
         
-        var rootTag: XMLTag = XMLTag()
+        let rootTag: XMLTag = XMLTag()
         rootTag.tageName = RootTag
         self.stack.append(rootTag)
         
-        print("Start");
+        //print("Start");
         
     }
     
@@ -92,78 +113,83 @@ extension XMLToMap: XMLParserDelegate {
         
         self.clean()
         
-        print("End");
+        //print("End");
     }
     
     public func parser(_ parser: XMLParser, foundNotationDeclarationWithName name: String, publicID: String?, systemID: String?) {
-        print("\(#function): \(name) \(publicID) \(systemID)")
+        //print("\(#function): \(name) \(publicID) \(systemID)")
         
     }
     
     public func parser(_ parser: XMLParser, foundUnparsedEntityDeclarationWithName name: String, publicID: String?, systemID: String?, notationName: String?) {
-        print("\(#function): \(name) \(publicID) \(systemID)")
+        //print("\(#function): \(name) \(publicID) \(systemID)")
     }
     
     public func parser(_ parser: XMLParser, foundAttributeDeclarationWithName attributeName: String, forElement elementName: String, type: String?, defaultValue: String?) {
-        print("\(#function): \(attributeName) \(elementName) \(type) \(defaultValue)")
+        //print("\(#function): \(attributeName) \(elementName) \(type) \(defaultValue)")
         
     }
     
     
     public func parser(_ parser: XMLParser, foundElementDeclarationWithName elementName: String, model: String) {
-        print("\(#function): \(elementName) \(model)")
+        //print("\(#function): \(elementName) \(model)")
         
     }
     
     
     public func parser(_ parser: XMLParser, foundInternalEntityDeclarationWithName name: String, value: String?) {
-        print("\(#function): \(name) \(value)")
+        //print("\(#function): \(name) \(value)")
         
     }
     
     
     public func parser(_ parser: XMLParser, foundExternalEntityDeclarationWithName name: String, publicID: String?, systemID: String?) {
-        print("\(#function): \(name) \(publicID) \(systemID)")
+        //print("\(#function): \(name) \(publicID) \(systemID)")
         
     }
     
     
     public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        print("\(#function): \(elementName) \(namespaceURI) \(qName)")
-        var newTag: XMLTag = XMLTag()
+        
+        //print("\(#function): \(elementName) \(namespaceURI) \(qName)")
+        
+        let newTag: XMLTag = XMLTag()
         newTag.tageName = elementName;
         newTag.attributes = attributeDict
+        
+        if let top: XMLTag = self.stack.last {
+            top.children.append(newTag);
+        }
         self.stack.append(newTag);
     }
     
     
     public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        print("\(#function): \(elementName) \(namespaceURI) \(qName)")
+        //print("\(#function): \(elementName) \(namespaceURI) \(qName)")
         
-        if let tag: XMLTag = self.stack.popLast(), let tagName: String = tag.tageName, tagName == elementName {
-            
+        guard let tag: XMLTag = self.stack.popLast(), let tagName: String = tag.tageName, tagName == elementName else {
+            print("\(#function): Tag Mismatch with stack Tracke: \(elementName)")
+            return
         }
-        
         
     }
     
     
     public func parser(_ parser: XMLParser, didStartMappingPrefix prefix: String, toURI namespaceURI: String) {
-        print("\(#function): \(prefix) \(namespaceURI)")
+        //print("\(#function): \(prefix) \(namespaceURI)")
         
     }
     
     
     public func parser(_ parser: XMLParser, didEndMappingPrefix prefix: String) {
-        print("\(#function): \(prefix)")
+        //print("\(#function): \(prefix)")
         
     }
     
     
     public func parser(_ parser: XMLParser, foundCharacters string: String) {
-        print("\(#function): \(string)")
-        
-        if var tag: XMLTag = self.stack.last, string != "" {
+        //print("\(#function): \(string)")
+        if let tag: XMLTag = self.stack.last, !string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             tag.value = string
         }
         
@@ -171,27 +197,27 @@ extension XMLToMap: XMLParserDelegate {
     
     
     public func parser(_ parser: XMLParser, foundIgnorableWhitespace whitespaceString: String)  {
-        print("\(#function): \(whitespaceString)")
+        //print("\(#function): \(whitespaceString)")
         
     }
     
     
     public func parser(_ parser: XMLParser, foundProcessingInstructionWithTarget target: String, data: String?) {
-        print("\(#function): \(target)   \(data)")
+        //print("\(#function): \(target)   \(data)")
         
     }
     
     
     public func parser(_ parser: XMLParser, foundComment comment: String) {
-        print("\(#function): \(comment)")
+        //print("\(#function): \(comment)")
         
     }
     
     
     public func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
-        print("\(#function):")
+        //print("\(#function):")
         
-        if var tag: XMLTag = self.stack.last, CDATABlock.count > 0 {
+        if let tag: XMLTag = self.stack.last, CDATABlock.count > 0 {
             tag.value = CDATABlock
         }
         
@@ -199,19 +225,19 @@ extension XMLToMap: XMLParserDelegate {
     
     
     public func parser(_ parser: XMLParser, resolveExternalEntityName name: String, systemID: String?) -> Data? {
-        print("\(#function): \(name) \(systemID)")
+        //print("\(#function): \(name) \(systemID)")
         return nil;
     }
     
     
     public func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        print("\(#function):")
+        print("\(#function): \(parseError)")
         
     }
     
     
     public func parser(_ parser: XMLParser, validationErrorOccurred validationError: Error) {
-        print("\(#function):")
+        print("\(#function): \(validationError)")
     }
     
 }

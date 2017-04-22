@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1438AB3B715A658F3D4056C8 /* Pods_TestPkgManagerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E971DC11CC28A1F94F45D85D /* Pods_TestPkgManagerUITests.framework */; };
-		2E3572E11EAA15C600D41E52 /* XmlToMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3572E01EAA15C600D41E52 /* XmlToMap.swift */; };
+		2E3572E11EAA15C600D41E52 /* XMLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3572E01EAA15C600D41E52 /* XMLMap.swift */; };
 		2E3572E81EAA1B9300D41E52 /* Sample2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2E3572E71EAA1B9300D41E52 /* Sample2.xml */; };
 		2E9DD4F01EA9E8B800B619B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9DD4EF1EA9E8B800B619B1 /* AppDelegate.swift */; };
 		2E9DD4F21EA9E8B800B619B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9DD4F11EA9E8B800B619B1 /* ViewController.swift */; };
@@ -42,7 +42,7 @@
 /* Begin PBXFileReference section */
 		0E277311149A3DE6B986A008 /* Pods-TestPkgManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestPkgManagerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TestPkgManagerTests/Pods-TestPkgManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		112DF75015BBD683538364B3 /* Pods-TestPkgManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestPkgManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-TestPkgManager/Pods-TestPkgManager.release.xcconfig"; sourceTree = "<group>"; };
-		2E3572E01EAA15C600D41E52 /* XmlToMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XmlToMap.swift; sourceTree = "<group>"; };
+		2E3572E01EAA15C600D41E52 /* XMLMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLMap.swift; sourceTree = "<group>"; };
 		2E3572E71EAA1B9300D41E52 /* Sample2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Sample2.xml; sourceTree = "<group>"; };
 		2E9DD4EC1EA9E8B800B619B1 /* TestPkgManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestPkgManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E9DD4EF1EA9E8B800B619B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		2E9DD4EE1EA9E8B800B619B1 /* TestPkgManager */ = {
 			isa = PBXGroup;
 			children = (
-				2E3572E01EAA15C600D41E52 /* XmlToMap.swift */,
+				2E3572E01EAA15C600D41E52 /* XMLMap.swift */,
 				2E9DD4EF1EA9E8B800B619B1 /* AppDelegate.swift */,
 				2E9DD4F11EA9E8B800B619B1 /* ViewController.swift */,
 				2E9DD4F31EA9E8B800B619B1 /* Main.storyboard */,
@@ -459,7 +459,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E3572E11EAA15C600D41E52 /* XmlToMap.swift in Sources */,
+				2E3572E11EAA15C600D41E52 /* XMLMap.swift in Sources */,
 				2E9DD4F21EA9E8B800B619B1 /* ViewController.swift in Sources */,
 				2E9DD4F01EA9E8B800B619B1 /* AppDelegate.swift in Sources */,
 			);

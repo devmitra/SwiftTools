@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         let dat: Data = try! Data(contentsOf: Bundle.main.url(forResource: "Sample2", withExtension: "xml")! )
-        let map: XMLToMap = XMLToMap();
+        let map: XMLMap = XMLMap();
         map.parse(xmlData: dat);
         
         map.display()
