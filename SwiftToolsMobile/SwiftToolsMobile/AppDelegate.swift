@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  TestPkgManager
+//  SwiftToolsMobile
 //
-//  Created by Pushan Mitra on 21/04/17.
+//  Created by Pushan Mitra on 22/04/17.
 //  Copyright © 2017 Pushan Mitra. All rights reserved.
 //
 

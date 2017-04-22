@@ -1,14 +1,14 @@
 //
-//  TestPkgManagerUITests.swift
-//  TestPkgManagerUITests
+//  SwiftToolsMobileUITests.swift
+//  SwiftToolsMobileUITests
 //
-//  Created by Pushan Mitra on 21/04/17.
+//  Created by Pushan Mitra on 22/04/17.
 //  Copyright © 2017 Pushan Mitra. All rights reserved.
 //
 
 import XCTest
 
-class TestPkgManagerUITests: XCTestCase {
+class SwiftToolsMobileUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()
