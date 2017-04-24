@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:captureConsumerId xmlns:ns0="http://integration.sprint.com/interfaces/captureConsumerId/v1/captureConsumerId.xsd">
+    <ns0:transactionInfo>
+        <ns0:storeNumber>14909474</ns0:storeNumber>
+        <ns0:dealerCode>LAWND01X</ns0:dealerCode>
+        <ns0:employeeId>57951165</ns0:employeeId>
+    </ns0:transactionInfo>
+    <ns0:ban>525825582</ns0:ban>
+</ns0:captureConsumerId>

@@ -13,11 +13,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let dat: Data = try! Data(contentsOf: Bundle.main.url(forResource: "Sample2", withExtension: "xml")! )
-        let map: XMLMap = XMLMap();
-        map.parse(xmlData: dat);
-        
-        map.display()
     }
 
     override func didReceiveMemoryWarning() {

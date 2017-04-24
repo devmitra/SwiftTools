@@ -10,27 +10,92 @@ import Foundation
 
 internal var RootTag: String = "root"
 
+public var kXMLTagValue = "value"
+public var kXMLAttributes = "attributes"
 
-internal class XMLTag: CustomStringConvertible  {
-    var tageName: String?
+public typealias JSON = [String : Any]
+
+
+public class XMLTag: CustomStringConvertible  {
+    public var tagName: String?
     var children: [XMLTag] = [XMLTag]()
-    var attributes: [String : String]?
+    public var attributes: [String : String]?
     var value: Any?
+    var level: Int = -1
     
     
-    init() {
-        
-    }
+    init() {}
     
     init(_ tag: XMLTag) {
-        self.tageName = tag.tageName
+        self.tagName = tag.tagName
         self.attributes = tag.attributes
         self.children = tag.children
         self.value = tag.value
+        self.level = tag.level
+    }
+    
+    public var JSON : JSON? {
+    
+        
+        var innerJson: JSON = [String : Any]()
+        if let attr = self.attributes, attr.count > 0 {
+            innerJson[kXMLTagValue] = self.value
+            innerJson[kXMLAttributes] = self.attributes
+        }
+        if self.children.count > 0 {
+            for tag in self.children {
+                if let tagnm: String = tag.tagName {
+                    var tagValue: Any;
+                    
+                    if let tgJSON = tag.JSON {
+                        tagValue = tgJSON
+                    }
+                    else if let val = tag.value {
+                        tagValue = val
+                    }
+                    else {
+                        tagValue = ""
+                    }
+                    
+                    if var list: [Any] = innerJson[tagnm] as? [Any] {
+                        list.append(tagValue)
+                        innerJson[tagnm] = list
+                    }
+                    else if let val = innerJson[tagnm]  {
+                        var list: [Any] = [Any]()
+                        list.append(val)
+                        list.append(tagValue)
+                        innerJson[tagnm] = list
+                    }
+                    else {
+                        innerJson[tagnm] = tagValue
+                    }
+                }
+            }
+            
+            if self.value != nil {
+                innerJson[kXMLTagValue] = self.value
+            }
+        }
+        
+        
+        if innerJson.count == 0 {
+            return nil
+        }
+        
+        return innerJson
     }
     
     public var description: String {
-        var str: String = "\n<\(tageName!)>"
+        
+        var tab: String = ""
+        if self.level >= 0 {
+            for _ in 0...self.level {
+                tab.append("\t")
+            }
+        }
+        
+        var str: String = "\n\(tab)<\(tagName!)>"
         
         if let val = self.value {
             str.append("\(val)")
@@ -40,9 +105,26 @@ internal class XMLTag: CustomStringConvertible  {
             str.append("\(tag)")
         }
         
-        str.append("</\(tageName!)>\n")
+        if self.children.count > 0 {
+            str.append("\n\(tab)</\(tagName!)>")
+        }
+        else {
+            str.append("</\(tagName!)>")
+        }
         
         return str
+    }
+    
+    public subscript (tag: String) -> [XMLTag] {
+        var childtags: [XMLTag] = [XMLTag]()
+        
+        for child in children {
+            if let tgName = child.tagName, tgName == tag {
+                childtags.append(child)
+            }
+        }
+        
+        return childtags
     }
 }
 
@@ -81,11 +163,34 @@ public class XMLMap :NSObject {
     }
     
     override public var description: String {
-        return "\(self.root)"
+        guard let des = self.root?.description else {
+            return ""
+        }
+        return des;
+    }
+    
+    public subscript(tagName: String) -> [XMLTag] {
+        
+        guard let val: [XMLTag] = self.root?[tagName] else {
+            return []
+        }
+        
+        return val
+    }
+    
+    public var JSON: JSON? {
+        return self.root?.JSON
     }
     
     public func display() {
-        print("XML MAP: \(self.root?.description)")
+        
+        if let des: String = self.root?.description {
+            print("XML-MAP: ==============================\(des)")
+            print("======================================== ")
+        }
+        else {
+            print("XML-MAP: Empty")
+        }
     }
     
 }
@@ -95,7 +200,8 @@ extension XMLMap: XMLParserDelegate {
     public func parserDidStartDocument(_ parser: XMLParser) {
         
         let rootTag: XMLTag = XMLTag()
-        rootTag.tageName = RootTag
+        rootTag.tagName = RootTag
+        rootTag.level = -1;
         self.stack.append(rootTag)
         
         //print("Start");
@@ -154,8 +260,9 @@ extension XMLMap: XMLParserDelegate {
         //print("\(#function): \(elementName) \(namespaceURI) \(qName)")
         
         let newTag: XMLTag = XMLTag()
-        newTag.tageName = elementName;
+        newTag.tagName = elementName;
         newTag.attributes = attributeDict
+        newTag.level = self.stack.count - 1
         
         if let top: XMLTag = self.stack.last {
             top.children.append(newTag);
@@ -167,7 +274,7 @@ extension XMLMap: XMLParserDelegate {
     public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         //print("\(#function): \(elementName) \(namespaceURI) \(qName)")
         
-        guard let tag: XMLTag = self.stack.popLast(), let tagName: String = tag.tageName, tagName == elementName else {
+        guard let tag: XMLTag = self.stack.popLast(), let tagName: String = tag.tagName, tagName == elementName else {
             print("\(#function): Tag Mismatch with stack Tracke: \(elementName)")
             return
         }
@@ -190,7 +297,7 @@ extension XMLMap: XMLParserDelegate {
     public func parser(_ parser: XMLParser, foundCharacters string: String) {
         //print("\(#function): \(string)")
         if let tag: XMLTag = self.stack.last, !string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            tag.value = string
+            tag.value = string.trimmingCharacters(in: .whitespacesAndNewlines)
         }
         
     }
