@@ -17,6 +17,8 @@
 		2E99C9EB1EAB2FA9000FD60F /* Sample.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2E99C9E91EAB2FA9000FD60F /* Sample.xml */; };
 		2E99C9EC1EAB2FA9000FD60F /* Sample2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2E99C9EA1EAB2FA9000FD60F /* Sample2.xml */; };
 		2E99C9EE1EAB2FCA000FD60F /* XMLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E99C9ED1EAB2FCA000FD60F /* XMLMap.swift */; };
+		2EFD4C911ED74AA8002875A5 /* TextAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFD4C901ED74AA8002875A5 /* TextAccessory.swift */; };
+		2EFD4C921ED74AA8002875A5 /* TextAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFD4C901ED74AA8002875A5 /* TextAccessory.swift */; };
 		563D15CDFC116475682E48AE /* Pods_SwiftToolsMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10400301467460AAB827785C /* Pods_SwiftToolsMobile.framework */; };
 		5ED21655A0E38AAD640D17CD /* Pods_SwiftToolsMobileTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D1A4CE921282BDAB3F4A61 /* Pods_SwiftToolsMobileTests.framework */; };
 		841B5BAE1EAD0828003B55F9 /* SwiftTools.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841B5BA51EAD0827003B55F9 /* SwiftTools.framework */; };
@@ -99,6 +101,7 @@
 		2E99C9E91EAB2FA9000FD60F /* Sample.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Sample.xml; sourceTree = "<group>"; };
 		2E99C9EA1EAB2FA9000FD60F /* Sample2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Sample2.xml; sourceTree = "<group>"; };
 		2E99C9ED1EAB2FCA000FD60F /* XMLMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLMap.swift; sourceTree = "<group>"; };
+		2EFD4C901ED74AA8002875A5 /* TextAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextAccessory.swift; sourceTree = "<group>"; };
 		2F3325B73DF46A8E9102AA07 /* Pods_SwiftToolsMobileUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftToolsMobileUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35B7A25E6DB0CDB06051CC8C /* Pods-SwiftToolsMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftToolsMobileTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftToolsMobileTests/Pods-SwiftToolsMobileTests.release.xcconfig"; sourceTree = "<group>"; };
 		3DEC72900CB7478F965096AB /* Pods-SwiftToolsMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftToolsMobile.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftToolsMobile/Pods-SwiftToolsMobile.release.xcconfig"; sourceTree = "<group>"; };
@@ -189,6 +192,7 @@
 		2E99C9B81EAB2ED5000FD60F /* SwiftToolsMobile */ = {
 			isa = PBXGroup;
 			children = (
+				2EFD4C8F1ED739D3002875A5 /* UI Tools */,
 				2E99C9E71EAB2F73000FD60F /* Tools */,
 				2E99C9E81EAB2F81000FD60F /* Resources */,
 				2E99C9B91EAB2ED5000FD60F /* AppDelegate.swift */,
@@ -236,6 +240,14 @@
 				2E99C9EA1EAB2FA9000FD60F /* Sample2.xml */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		2EFD4C8F1ED739D3002875A5 /* UI Tools */ = {
+			isa = PBXGroup;
+			children = (
+				2EFD4C901ED74AA8002875A5 /* TextAccessory.swift */,
+			);
+			name = "UI Tools";
 			sourceTree = "<group>";
 		};
 		60D2A21679FC5B1810464572 /* Frameworks */ = {
@@ -640,6 +652,7 @@
 				2E99C9BC1EAB2ED5000FD60F /* ViewController.swift in Sources */,
 				2E99C9BA1EAB2ED5000FD60F /* AppDelegate.swift in Sources */,
 				2E99C9EE1EAB2FCA000FD60F /* XMLMap.swift in Sources */,
+				2EFD4C911ED74AA8002875A5 /* TextAccessory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,6 +677,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				841B5BC31EAD0842003B55F9 /* XMLMap.swift in Sources */,
+				2EFD4C921ED74AA8002875A5 /* TextAccessory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

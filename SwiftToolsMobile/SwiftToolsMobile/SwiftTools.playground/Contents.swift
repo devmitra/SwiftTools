@@ -15,3 +15,35 @@ map.display()
 //print(">>>>>> \(tag)")
 
 print(">>>>>>> DICT : \n \(String(describing: map.JSON))")
+
+extension String {
+    func match(_ other: String) -> Bool {
+        
+        
+        if self == other {
+            return true
+        }
+        
+        let thiswords: [String] = self.components(separatedBy: " ")
+        let thatwords: [String] = other.components(separatedBy: " ")
+        
+        let bigword: [String] = thiswords.count > thatwords.count ? thiswords : thatwords
+        let smallword: [String] = thiswords.count <= thatwords.count ? thiswords : thatwords
+        
+        for word in smallword {
+            if let _ = bigword.index(of: word) {
+                continue
+            }
+            else {
+                return false
+            }
+        }
+        
+        
+        return true
+    }
+}
+
+var s1: String = "labak bhalo chele"
+var s2: String = "labak"
+s1.match(s2)
